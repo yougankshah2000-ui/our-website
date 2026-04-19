@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>For My Anshu ❤️</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
 body {
 margin:0;
-font-family: Arial;
+font-family: Arial, sans-serif;
 background: linear-gradient(to bottom,#ffdde1,#ee9ca7);
 text-align:center;
 overflow-x:hidden;
 }
 
-/* PASSWORD SCREEN */
+/* PASSWORD */
 
 #lockScreen {
 position: fixed;
@@ -28,7 +31,7 @@ z-index:9999;
 }
 
 input {
-padding:10px;
+padding:12px;
 font-size:16px;
 border-radius:10px;
 border:none;
@@ -48,12 +51,12 @@ cursor:pointer;
 
 .bheart {
 font-size:40px;
-animation: beat 1s infinite;
+animation: beat 1.2s infinite;
 }
 
 @keyframes beat {
 0% {transform: scale(1);}
-50% {transform: scale(1.3);}
+50% {transform: scale(1.2);}
 100% {transform: scale(1);}
 }
 
@@ -62,26 +65,33 @@ animation: beat 1s infinite;
 .heart {
 position: fixed;
 bottom:-10px;
-font-size:20px;
+font-size:18px;
 animation: floatUp linear infinite;
 color:red;
+opacity:0.8;
 }
 
 @keyframes floatUp {
-0% {transform: translateY(0); opacity:1;}
-100% {transform: translateY(-100vh); opacity:0;}
+0% {
+transform: translateY(0);
+opacity:1;
+}
+100% {
+transform: translateY(-100vh);
+opacity:0;
+}
 }
 
 /* SLIDER */
 
 .slider {
 position: relative;
-max-width: 500px;
+max-width: 320px;
 margin: 30px auto;
 }
 
 .slide {
-display: none;
+display:none;
 }
 
 .slide img {
@@ -90,7 +100,7 @@ border-radius:20px;
 box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* BUTTONS */
+/* ARROWS */
 
 .prev, .next {
 cursor:pointer;
@@ -113,18 +123,11 @@ background:white;
 padding:20px;
 margin:20px;
 border-radius:15px;
-max-width:700px;
+max-width:600px;
 margin-left:auto;
 margin-right:auto;
 box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* FUNNY TEXT */
-
-.funny {
-font-style: italic;
-color:#800040;
-margin-top:10px;
+line-height:1.6;
 }
 
 </style>
@@ -157,46 +160,38 @@ margin-top:10px;
 
 <div class="slide">
 <img src="photo1.jpg">
-<p class="funny">Ye wali photo me tu itni cute lag rhi thi ki main bas dekhte reh gaya 😄</p>
 </div>
 
 <div class="slide">
 <img src="photo2.jpg">
-<p class="funny">Is photo me lag raha hai kisi ne meri smile chura li 😜</p>
 </div>
 
 <div class="slide">
 <img src="photo3.jpg">
-<p class="funny">Ye wali photo — meri favourite, no arguments 😌</p>
 </div>
 
 <div class="slide">
 <img src="photo4.jpg">
-<p class="funny">Sach bolu to yaha tu model lag rhi thi 😄</p>
 </div>
 
 <div class="slide">
 <img src="photo5.jpg">
-<p class="funny">Is photo ko dekh kar hi mood thik ho jata hai ❤️</p>
 </div>
 
 <div class="slide">
 <img src="photo6.jpg">
-<p class="funny">Ye wali smile — dangerous level cute 😆</p>
 </div>
 
 <div class="slide">
 <img src="photo7.jpg">
-<p class="funny">Hum dono yaha kitna haste the 😄</p>
 </div>
 
 <div class="slide">
 <img src="photo8.jpg">
-<p class="funny">Aur ye photo — pure happiness ❤️</p>
 </div>
 
-<a class="prev" onclick="changeSlide(-1)">❮</a>
-<a class="next" onclick="changeSlide(1)">❯</a>
+<a class="prev" onclick="plusSlides(-1)">❮</a>
+<a class="next" onclick="plusSlides(1)">❯</a>
 
 </div>
 
@@ -213,12 +208,11 @@ Uska mujhe sach me regret hai.
 <p>
 Mujhe wo moment yaad hai  
 jab tu mere paas so gayi thi  
-aur main aadhi raat tak tujhe dekhta raha tha.  
-Teri aankhen mujhe aaj bhi yaad hain.
+aur main aadhi raat tak tujhe dekhta raha tha.
 </p>
 
 <p>
-Hum dono kitna haste the, mazak karte the…  
+Hum dono kitna haste the…  
 Mujhe wo sab wapas chahiye.
 </p>
 
@@ -234,7 +228,8 @@ Mujhe wo sab wapas chahiye.
 
 function checkPassword() {
 
-var pass = document.getElementById("passwordInput").value;
+var pass =
+document.getElementById("passwordInput").value;
 
 if(pass === "yougansh") {
 
@@ -248,40 +243,67 @@ alert("Wrong Password");
 
 }
 
-/* FLOATING HEARTS */
+/* FLOATING HEARTS (LIGHT) */
+
+let heartCount = 0;
 
 function createHeart() {
 
-var heart = document.createElement("div");
+if (heartCount > 8) return;
+
+var heart =
+document.createElement("div");
 
 heart.className = "heart";
 
 heart.innerHTML = "❤️";
 
-heart.style.left = Math.random() * 100 + "vw";
+heart.style.left =
+Math.random() * 100 + "vw";
 
 heart.style.animationDuration =
 (Math.random() * 3 + 3) + "s";
 
 document.body.appendChild(heart);
 
+heartCount++;
+
 setTimeout(() => {
+
 heart.remove();
+heartCount--;
+
 }, 6000);
 
 }
 
-setInterval(createHeart, 500);
+setInterval(createHeart, 2000);
 
 /* SLIDER */
 
 let slideIndex = 0;
+
 showSlides();
 
-function changeSlide(n) {
+/* Auto slide */
+
+setInterval(function() {
+
+slideIndex++;
+showSlides();
+
+}, 3000);
+
+/* Manual arrows */
+
+function plusSlides(n) {
+
 slideIndex += n;
 showSlides();
+
 }
+
+/* Show slides */
 
 function showSlides() {
 
@@ -295,10 +317,13 @@ if (slideIndex < 0)
 slideIndex = slides.length - 1;
 
 for (let i = 0; i < slides.length; i++) {
+
 slides[i].style.display = "none";
+
 }
 
-slides[slideIndex].style.display = "block";
+slides[slideIndex].style.display =
+"block";
 
 }
 
